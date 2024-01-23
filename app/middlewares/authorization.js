@@ -1,6 +1,7 @@
 import jsonwebtoken from "jsonwebtoken";
 import dotenv from "dotenv";
 import {usuarios} from "../controllers/authentication.controller.js";
+import Connection from "mysql";
 
 dotenv.config();
 
