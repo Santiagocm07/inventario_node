@@ -8,7 +8,8 @@ dotenv.config();
 export const usuarios = [{
     user: "santi",
     email: "santi07@algo.com",
-    password: "$2a$05$azyZTWEF.qocq4Nq.suJx.OYcoVUaCIwpqT0jHRINy8yen3hr5WD6"
+    /*password: "$2a$05$azyZTWEF.qocq4Nq.suJx.OYcoVUaCIwpqT0jHRINy8yen3hr5WD6"*/
+    password: "$2a$12$5UFtIIEbtMPGDqj5AReBieQ9SoLas.zw69uq83WAfJvzcOxfTj8BS"
 }]
 
 //función para crear nuevos usuarios
@@ -61,7 +62,7 @@ async function register(req, res) {
     return res.status(201).send({
       status: "ok",
       message: "Usuario ${nuevoUsuario.user} agregado",
-      redirect: "/",
+      redirect: "/login",
     });
   }
 
