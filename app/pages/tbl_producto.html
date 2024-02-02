@@ -11,6 +11,12 @@
   <link rel="stylesheet" href="sidebar.css">
 </head>
 <body>
+  <br>
+  <br>
+  <div class="text-center">
+    <button class="btn btn-md btn-primary"><i class='bx bx-add-to-queue'></i></button>
+  </div>
+  
   <div class="container my-4">
     <div class="row">
       <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12">
@@ -28,6 +34,46 @@
           </thead>
           <tbody id="tableBody_users"></tbody>
         </table>
+      </div>
+    </div>
+  </div>
+
+  <!--Modal-->
+  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Editar producto</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form>
+            <div class="mb-3">
+              <label for="referencia-text" class="col-form-label">Referencia:</label>
+              <input type="text" class="form-control" id="recipient-name">
+            </div>
+            <div class="mb-3">
+              <label for="DescripcionProducto-text" class="col-form-label">Descripción del producto:</label>
+              <input type="text" class="form-control" id="recipient-name">
+            </div>
+            <div class="mb-3">
+              <label for="id_tipo-name" class="col-form-label">Tipo de producto:</label>
+              <input type="text" class="form-control" id="recipient-name">
+            </div>
+            <div class="mb-3">
+              <label for="id_marca-name" class="col-form-label">Marca del producto:</label>
+              <input type="text" class="form-control" id="recipient-name">
+            </div>
+            <div class="mb-3">
+              <label for="DescripcionPresentacion-text" class="col-form-label">Descripción de la presentacion:</label>
+              <input type="text" class="form-control" id="recipient-name">
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+          <button type="button" class="btn btn-primary">Agregar cambio</button>
+        </div>
       </div>
     </div>
   </div>

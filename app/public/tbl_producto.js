@@ -55,7 +55,7 @@ const listUsers= async () => {
                 <td>${user.company.name}</td>
                 <td><i class='bx bx-check' style="color: green;"></i></td>
                 <td>
-                  <button class="btn btn-sm btn-primary"><i class='bx bxs-edit-alt'></i></button>
+                  <button class="btn btn-sm btn-primary" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal"><i class='bx bxs-edit-alt'></i></button>
                   <button class="btn btn-sm btn-danger"><i class='bx bxs-trash'></i></button>
                 </td>
             </tr>`;
