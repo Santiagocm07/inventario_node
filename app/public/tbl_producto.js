@@ -1,11 +1,11 @@
-let dataTable;
+/*/let dataTable;
 let dataTableIsInitialized = false;
 
 const dataTableOptions = {
     columnDefs: [
         {className: "centered", targets: [0, 1, 2, 3, 4, 5, 6]},
         {orderable: false, targets: [5,6]},
-        /*{searchable: false, targets: [1]}*/
+        //{searchable: false, targets: [1]}//
     ],
     pageLength: 3,
     destroy: true,
@@ -61,6 +61,78 @@ const listUsers= async () => {
             </tr>`;
         });
         tableBody_users.innerHTML = content;
+    } catch (ex) {
+        alert(ex);
+    }
+};
+
+window.addEventListener("load", async () => {
+    await initDataTable();
+});*/
+
+let dataTable;
+let dataTableIsInitialized = false;
+
+const dataTableOptions = {
+    columnDefs: [
+        { className: "centered", targets: [0, 1, 2, 3, 4, 5, 6] },
+        { orderable: false, targets: [5, 6] },
+        //{searchable: false, targets: [1]}//
+    ],
+    pageLength: 10,
+    destroy: true,
+    language: {
+        lengthMenu: "Mostrar _MENU_ registros por página",
+        zeroRecords: "Ningún usuario encontrado",
+        info: "Mostrando de _START_ a _END_ de un total de _TOTAL_ registros",
+        infoEmpty: "Ningún usuario encontrado",
+        infoFiltered: "(filtrados desde _MAX_ registros totales)",
+        search: "Buscar:",
+        loadingRecords: "Cargando ...",
+        paginate: {
+            first: "Primero",
+            last: "Último",
+            next: "Siguiente",
+            previous: "Anterior"
+        }
+    }
+
+};
+
+const initDataTable = async () => {
+    if (dataTableIsInitialized) {
+        dataTable.destroy();
+    }
+
+    await listUsers();
+
+    dataTable = $("#datatable_productos").DataTable(dataTableOptions);
+
+    dataTableIsInitialized = true;
+};
+
+const listUsers = async () => {
+    try {
+        const response = await fetch("http://localhost:3000/productos");
+        const users = await response.json();
+
+        let content = ``;
+        users.forEach((user, index) => {
+            content += `
+            <tr>
+                <td>${index + 1}</td>
+                <td>${user.Referencia}</td>
+                <td>${user.DescripcionProducto}</td>
+                <td>${user.DescripcionTipo}</td>
+                <td>${user.DescripcionMarca}</td>
+                <td>${user.DescripcionPresentacion}</td>
+                <td>
+                  <button class="btn btn-sm btn-primary" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#ModalProducto"><i class='bx bxs-edit-alt'></i></button>
+                  <button class="btn btn-sm btn-danger"><i class='bx bxs-trash'></i></button>
+                </td>
+            </tr>`;
+        });
+        tableBody_productos.innerHTML = content;
     } catch (ex) {
         alert(ex);
     }
