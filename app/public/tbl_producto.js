@@ -74,51 +74,50 @@ let dataTable;
 let dataTableIsInitialized = false;
 
 const dataTableOptions = {
-    columnDefs: [
-        { className: "centered", targets: [0, 1, 2, 3, 4, 5, 6] },
-        { orderable: false, targets: [5, 6] },
-        //{searchable: false, targets: [1]}//
-    ],
-    pageLength: 10,
-    destroy: true,
-    language: {
-        lengthMenu: "Mostrar _MENU_ registros por página",
-        zeroRecords: "Ningún usuario encontrado",
-        info: "Mostrando de _START_ a _END_ de un total de _TOTAL_ registros",
-        infoEmpty: "Ningún usuario encontrado",
-        infoFiltered: "(filtrados desde _MAX_ registros totales)",
-        search: "Buscar:",
-        loadingRecords: "Cargando ...",
-        paginate: {
-            first: "Primero",
-            last: "Último",
-            next: "Siguiente",
-            previous: "Anterior"
-        }
-    }
-
+  columnDefs: [
+    { className: "centered", targets: [0, 1, 2, 3, 4, 5, 6] },
+    { orderable: false, targets: [5, 6] },
+    //{searchable: false, targets: [1]}//
+  ],
+  pageLength: 10,
+  destroy: true,
+  language: {
+    lengthMenu: "Mostrar _MENU_ registros por página",
+    zeroRecords: "Ningún usuario encontrado",
+    info: "Mostrando de _START_ a _END_ de un total de _TOTAL_ registros",
+    infoEmpty: "Ningún usuario encontrado",
+    infoFiltered: "(filtrados desde _MAX_ registros totales)",
+    search: "Buscar:",
+    loadingRecords: "Cargando ...",
+    paginate: {
+      first: "Primero",
+      last: "Último",
+      next: "Siguiente",
+      previous: "Anterior",
+    },
+  },
 };
 
 const initDataTable = async () => {
-    if (dataTableIsInitialized) {
-        dataTable.destroy();
-    }
+  if (dataTableIsInitialized) {
+    dataTable.destroy();
+  }
 
-    await listUsers();
+  await listUsers();
 
-    dataTable = $("#datatable_productos").DataTable(dataTableOptions);
+  dataTable = $("#datatable_productos").DataTable(dataTableOptions);
 
-    dataTableIsInitialized = true;
+  dataTableIsInitialized = true;
 };
 
 const listUsers = async () => {
-    try {
-        const response = await fetch("http://localhost:3000/productos");
-        const users = await response.json();
+  try {
+    const response = await fetch("http://localhost:3000/productos");
+    const users = await response.json();
 
-        let content = ``;
-        users.forEach((user, index) => {
-            content += `
+    let content = ``;
+    users.forEach((user, index) => {
+      content += `
             <tr>
                 <td>${index + 1}</td>
                 <td>${user.Referencia}</td>
@@ -127,17 +126,58 @@ const listUsers = async () => {
                 <td>${user.DescripcionMarca}</td>
                 <td>${user.DescripcionPresentacion}</td>
                 <td>
-                  <button class="btn btn-sm btn-primary" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#ModalProducto"><i class='bx bxs-edit-alt'></i></button>
-                  <button class="btn btn-sm btn-danger"><i class='bx bxs-trash'></i></button>
+                  <button class="btn btn-sm btn-primary" class="btn btn-primary" data-bs-toggle="modal" onclick="openModal(${
+                    user.id_producto
+                  })"><i class='bx bxs-edit-alt'></i></button>
+                  <button class="btn btn-sm btn-danger" onclick="ALA()"><i class='bx bxs-trash'></i></button>
                 </td>
             </tr>`;
-        });
-        tableBody_productos.innerHTML = content;
-    } catch (ex) {
-        alert(ex);
-    }
+    });
+    tableBody_productos.innerHTML = content;
+  } catch (ex) {
+    alert(ex);
+  }
 };
 
 window.addEventListener("load", async () => {
-    await initDataTable();
+  await initDataTable();
 });
+
+function ALA() {
+  //   console.log("ola");
+  //   Swal.fire("Viejo verde!");
+  Swal.fire({
+    title: "<strong>HTML <u>example</u></strong>",
+    icon: "info",
+    html: `
+      You can use <b>bold text</b>,
+      <a href="#">links</a>,
+      and other HTML tags
+    `,
+    showCloseButton: true,
+    showCancelButton: true,
+    focusConfirm: false,
+    confirmButtonText: `
+      <i class="fa fa-thumbs-up"></i> Great!
+    `,
+    confirmButtonAriaLabel: "Thumbs up, great!",
+    cancelButtonText: `
+      <i class="fa fa-thumbs-down"></i>
+    `,
+    cancelButtonAriaLabel: "Thumbs down",
+  });
+}
+
+function openModal(productID) {
+  // Actualiza el atributo data-bs-target para apuntar a la modal específica
+  const modalButton = document.querySelector(
+    '.btn-primary[data-bs-toggle="modal"]'
+  );
+  modalButton.setAttribute("data-bs-target", `#ModalProducto${productID}`);
+
+  // Abre la modal
+  const modal = new bootstrap.Modal(
+    document.getElementById(`ModalProducto${productID}`)
+  );
+  modal.show();
+}
