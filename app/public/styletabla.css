@@ -1,4 +1,14 @@
-.centered {
+/*.centered {
     text-align: center !important;
     vertical-align: middle !important;
+}*/
+
+.container {
+    width: calc(100% - 300px);
+    float: right;
+}
+
+.sidebar {
+    width: 300 px;
+    float: left;
 }
