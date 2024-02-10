@@ -3,7 +3,7 @@
     vertical-align: middle !important;
 }*/
 
-.container {
+/*.container {
     width: calc(100% - 300px);
     float: right;
 }
@@ -11,4 +11,20 @@
 .sidebar {
     width: 300 px;
     float: left;
-}
+}*/
+
+.top{
+    top: 0;
+    height: 100vh;
+    background-color: rgba(0,0,0,.8);
+    display: grid;
+    place-items: center;
+    transition: .4s;
+  }
+  .close{
+    top: 5em;
+    left: 70%;
+  }
+  .translate{
+    transform: translateY(-100%);
+  }

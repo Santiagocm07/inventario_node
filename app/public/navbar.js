@@ -23,8 +23,8 @@ modeSwitch.addEventListener("click", () => {
 })*/
 
 // Código del sidebar
-const sidebarContent = `
-    <nav class="sidebar close">
+/*const sidebarContent = `
+    <nav class="sidebar open">
     <!-- Contenido del sidebar -->
         <header>
         <div class="text logo">
@@ -109,7 +109,6 @@ function loadSidebar() {
 }
 
 // Llama a la función para cargar el sidebar cuando la página se cargue completamente
-window.addEventListener('DOMContentLoaded', loadSidebar);
-
+window.addEventListener('DOMContentLoaded', loadSidebar);*/
 
 

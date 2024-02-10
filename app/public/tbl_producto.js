@@ -70,7 +70,8 @@ window.addEventListener("load", async () => {
     await initDataTable();
 });*/
 
-let dataTable;
+//tabla buena
+/*let dataTable;
 let dataTableIsInitialized = false;
 
 const dataTableOptions = {
@@ -127,8 +128,7 @@ const listUsers = async () => {
                 <td>${user.DescripcionPresentacion}</td>
                 <td>
                   <button class="btn btn-sm btn-primary" class="btn btn-primary" data-bs-toggle="modal" onclick="openModal(${
-                    user.id_producto
-                  })"><i class='bx bxs-edit-alt'></i></button>
+                    user.id_producto})"><i class='bx bxs-edit-alt'></i></button>
                   <button class="btn btn-sm btn-danger" onclick="ALA()"><i class='bx bxs-trash'></i></button>
                 </td>
             </tr>`;
@@ -178,4 +178,101 @@ function openModal(productID) {
     document.getElementById(`ModalProducto${productID}`)
   );
   modal.show();
+}*/
+
+let dataTableIsInitialized = false;
+const table = document.getElementById("table");
+const modal = document.getElementById("modal");
+const inputs = document.querySelectorAll("input");
+let count = 0;
+
+const initDataTable = async () => {
+  if (dataTableIsInitialized) {
+    dataTable.destroy();
+  }
+
+  await listUsers();
+
+  dataTable = $("#datatable_productos").DataTable(dataTableOptions);
+
+  dataTableIsInitialized = true;
+};
+
+const listUsers = async () => {
+  try {
+    const response = await fetch("http://localhost:3000/productos");
+    const users = await response.json();
+
+    let content = ``;
+    users.forEach((user, index) => {
+      content += `
+            <tr>
+                <td>${index + 1}</td>
+                <td>${user.Referencia}</td>
+                <td>${user.DescripcionProducto}</td>
+                <td>${user.DescripcionTipo}</td>
+                <td>${user.DescripcionMarca}</td>
+                <td>${user.DescripcionPresentacion}</td>
+                <td>
+                  <button class="btn btn-sm btn-primary" class="btn btn-primary" data-bs-toggle="modal" onclick="openModal(${
+                    user.id_producto})"><i class='bx bxs-edit-alt'></i></button>
+                  <button class="btn btn-sm btn-danger" onclick="ALA()"><i class='bx bxs-trash'></i></button>
+                </td>
+            </tr>`;
+    });
+    tableBody_productos.innerHTML = content;
+  } catch (ex) {
+    alert(ex);
+  }
+};
+
+window.addEventListener("load", async () => {
+  await initDataTable();
+});
+
+function ALA() {
+  //   console.log("ola");
+  //   Swal.fire("Viejo verde!");
+  Swal.fire({
+    title: "<strong><u>Alerta</u></strong>",
+    icon: "info",
+    html: `
+      ¿Seguro quieres eliminar este producto?
+    `,
+    showCloseButton: true,
+    showCancelButton: true,
+    focusConfirm: false,
+    confirmButtonText: `
+      <i class="fa fa-thumbs-up"></i> Aceptar!
+    `,
+    confirmButtonAriaLabel: "Thumbs up, great!",
+    cancelButtonText: `
+      <i class="fa fa-thumbs-down"> Cancelar</i>
+    `,
+    cancelButtonAriaLabel: "Thumbs down",
+  });
+}
+
+//Modal editar//
+function openModal(){
+  window.addEventListener("click", (e) => {
+    if (e.target.matches(".btn-warning")) {
+      let data = e.target.parentElement.parentElement.children;
+      fillData(data);
+      modal.classList.toggle("translate");
+    }
+
+    if (e.target.matches(".btn-danger")) {
+    modal.classList.toggle("translate");
+    count=0
+    }
+  });
+
+  const fillData = (data) => {
+    for (let index of inputs) {
+      index.value = data[count].textContent;
+      console.log(index);
+      count += 1;
+    }
+  };
 }
