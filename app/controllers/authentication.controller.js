@@ -68,7 +68,7 @@ async function register(req, res) {
 
   
 
-/*async function login(req,res){
+async function login(req,res){
     console.log(req.body);
     const user = req.body.user;
     const password = req.body.password;
@@ -94,9 +94,9 @@ async function register(req, res) {
         }
         res.cookie("jwt",token,cookieOption);
         res.send({status:"ok",message:"Usuario loggeado",redirect:"/principalNavbar"})
-}*/
+}
 
-async function login(req, res) {
+/*async function login(req, res) {
   const user = req.body.user;
   const email = req.body.email;
   const password = req.body.password;
@@ -130,7 +130,7 @@ async function login(req, res) {
     message: "Usuario ${nuevoUsuario.user} agregado",
     redirect: "/principalNavbar"
   });
-}
+}*/
 
 /*async function register(req,res){
     const user = req.body.user;
