@@ -24,8 +24,9 @@ app.get("/",authorization.soloPublico,(req,res)=> res.sendFile( __dirname + "/pa
 app.get("/login",authorization.soloPublico,(req,res)=> res.sendFile( __dirname + "/pages/login.html"));
 app.get("/register",authorization.soloPublico,(req,res)=> res.sendFile( __dirname + "/pages/register.html"));
 app.get("/navbar",authorization.soloPublico,(req,res)=> res.sendFile( __dirname + "/pages/navbar.html"));
-app.get("/admin",authorization.soloAdmin,(req,res)=> res.sendFile( __dirname + "/pages/admin/admin.html"));
+app.get("/admin",authorization.soloPublico,(req,res)=> res.sendFile( __dirname + "/pages/admin/admin.html"));
+app.get("/PrincipalNavbar",authorization.soloPublico,(req,res)=> res.sendFile( __dirname + "/pages/PrincipalNavbar.html"));
 app.get("/tbl_producto",authorization.soloPublico,(req,res)=> res.sendFile( __dirname + "/pages/tbl_producto.html"));
 app.get("/crearProducto",authorization.soloPublico,(req,res)=> res.sendFile( __dirname + "/pages/crearProducto.html"));
-app.post("/api/login",authentication.login);
-app.post("/api/register",authentication.register);
+app.post("/app/login",authentication.login);
+app.post("/app/register",authentication.register);

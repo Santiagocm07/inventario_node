@@ -308,12 +308,17 @@ body.dark .home .text {
     color: var(--text-color);
 }*/
  
+
 .navbar {
     background-color: rgb(204, 202, 202);
     height: 80px;
     margin: 20px;
     border-radius: 16px;
     padding: 0.5rem;
+    overflow: hidden;
+    position: fixed;
+    top: 0;
+    width: 100%;
 }
 
 .navbar-brand {
@@ -348,7 +353,7 @@ body.dark .home .text {
 }
 
 .nav-link {
-    color: #666777;
+    color: #9d9d9e;
     font-weight: 500;
     position: relative;
 }

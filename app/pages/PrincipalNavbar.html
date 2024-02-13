@@ -1,0 +1,28 @@
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Acerca de nosotros</title>
+<link rel="stylesheet" href="style.css">
+<link href="navbar.css" rel="stylesheet">
+</head>
+<body>
+    <div id="navbar-container"></div>
+
+<script>
+  // Utilizando fetch para obtener el contenido del navbar desde el archivo
+  fetch('navbar')
+    .then(response => response.text())
+    .then(data => {
+      // Insertando el contenido del navbar en el contenedor
+      document.getElementById('navbar-container').innerHTML = data;
+    });
+</script>
+
+<main>
+    <div class='form-container'>
+        <div class='container1'>
+        <h2>Bienvenido al area administrativa.</h2>
+        <h4>Área Logistica</h4>
+        </div>
+    </div>
+</main>
+</body>
+</html>

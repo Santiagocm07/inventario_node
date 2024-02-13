@@ -269,17 +269,31 @@
   <!--Sweet-->
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   <!--Style CSS-->
+  <link href="navbar.css" rel="stylesheet">
   <link rel="stylesheet" href="styletabla.css"/>
   <!--<link rel="stylesheet" href="sidebar.css"/>-->
 </head>
 <body>
-  <div id="navbarContainer"></div>
+  <div id="navbar-container"></div>
 
+<script>
+  // Utilizando fetch para obtener el contenido del navbar desde el archivo
+  fetch('navbar')
+    .then(response => response.text())
+    .then(data => {
+      // Insertando el contenido del navbar en el contenedor
+      document.getElementById('navbar-container').innerHTML = data;
+    });
+</script>
+  
+<br>
+<br>
+<br>
   <div class="container mt-5 position-relative">
     <div class="row">
       <div class="col">
         <button class="btn btn-success mb-2"><i class='bx bx-plus-circle'></i> Nuevo registro</button>
-        <table class="table table-striped" id="datatable_productos">
+        <table class="table table-striped table-bordered" id="datatable_productos">
           <thead>
             <tr>
               <th class="centered">Id</th>

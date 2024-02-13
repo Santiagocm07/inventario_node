@@ -53,8 +53,8 @@ async function register(req, res) {
     const nuevoUsuario = {
       user,
       email,
-      password: hashPassword,
-    };
+      password: hashPassword
+    }
     crearUsuarios(nuevoUsuario);
     //   usuarios.push(nuevoUsuario);
     console.log(nuevoUsuario);
@@ -62,13 +62,13 @@ async function register(req, res) {
     return res.status(201).send({
       status: "ok",
       message: "Usuario ${nuevoUsuario.user} agregado",
-      redirect: "/login",
+      redirect: "/principalNavbar"
     });
   }
 
   
 
-async function login(req,res){
+/*async function login(req,res){
     console.log(req.body);
     const user = req.body.user;
     const password = req.body.password;
@@ -81,7 +81,7 @@ async function login(req,res){
     }
     const loginCorrecto = await bcryptjs.compare(password,usuarioARevisar.password);
     if(!loginCorrecto){
-    return res.status(400).send({status:"Error",message:"Error durante login"})
+    return res.status(400).send({status:"Error",message:"Error en la contraseña"})
     }
     const token = jsonwebtoken.sign(
         {user:usuarioARevisar.user},
@@ -93,7 +93,43 @@ async function login(req,res){
             Path: "/"
         }
         res.cookie("jwt",token,cookieOption);
-        res.send({status:"ok",message:"Usuario loggeado",redirect:"/admin"})
+        res.send({status:"ok",message:"Usuario loggeado",redirect:"/principalNavbar"})
+}*/
+
+async function login(req, res) {
+  const user = req.body.user;
+  const email = req.body.email;
+  const password = req.body.password;
+
+  if (!user || !email || !password) {
+    return res
+      .status(400)
+      .send({ status: "Error", message: "Los campos estan incompletos" });
+  }
+
+  const usuarioARevisar = usuarios.find((usuario) => usuario.user === user);
+  console.log(usuarioARevisar);
+  if (usuarioARevisar) {
+    return res
+      .status(400)
+      .send({ status: "Error", message: "Este usuario ya existe" });
+  }
+  const salt = await bcryptjs.genSalt(5);
+  const hashPassword = await bcryptjs.hash(password, salt);
+  const nuevoUsuario = {
+    user,
+    email,
+    password: hashPassword
+  }
+  crearUsuarios(nuevoUsuario);
+  //   usuarios.push(nuevoUsuario);
+  console.log(nuevoUsuario);
+
+  return res.status(201).send({
+    status: "ok",
+    message: "Usuario ${nuevoUsuario.user} agregado",
+    redirect: "/principalNavbar"
+  });
 }
 
 /*async function register(req,res){
